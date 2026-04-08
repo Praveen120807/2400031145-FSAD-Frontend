@@ -3,6 +3,7 @@ import UserNavBar from './UserNavBar';
 import { updateUserProfile } from '../api/user';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
+import './UserTheme.css';
 
 const UserProfile = () => {
   const { user } = useAuth();
@@ -31,42 +32,46 @@ const UserProfile = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="user-page user-page-profile">
       <UserNavBar />
-      <div style={{ padding: '40px 5%', maxWidth: '800px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#667eea', marginBottom: '20px' }}>Update Profile</h1>
-        <div style={{ background: 'white', borderRadius: '10px', padding: '30px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+      <div className="user-shell user-form-wrap">
+        <h1 className="user-title">Update Profile</h1>
+        <p className="user-subtitle">Keep your account profile current for accurate communication and account security.</p>
+        <div className="user-card user-form-card user-form-card-profile">
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Full Name</label>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
+            <div className="user-form-section-title">Personal Details</div>
+            <div className="user-field">
+              <label>Full Name</label>
+              <input type="text" name="name" value={formData.name} onChange={handleChange} required className="user-input" />
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Gender</label>
-              <select name="gender" value={formData.gender} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }}>
+            <div className="user-field">
+              <label>Gender</label>
+              <select name="gender" value={formData.gender} onChange={handleChange} required className="user-input">
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
               </select>
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Email</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
+
+            <div className="user-form-section-title">Account Details</div>
+            <div className="user-field">
+              <label>Email</label>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required className="user-input" />
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Username</label>
-              <input type="text" name="username" value={formData.username} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
+            <div className="user-field">
+              <label>Username</label>
+              <input type="text" name="username" value={formData.username} onChange={handleChange} required className="user-input" />
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Password</label>
-              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Leave blank to keep current password" style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
+            <div className="user-field">
+              <label>Password</label>
+              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Leave blank to keep current password" className="user-input" />
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Contact Number</label>
-              <input type="text" name="Contact" value={formData.Contact} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
+            <div className="user-field">
+              <label>Contact Number</label>
+              <input type="text" name="Contact" value={formData.Contact} onChange={handleChange} required className="user-input" />
             </div>
-            <button type="submit" style={{ width: '100%', padding: '12px', background: '#667eea', color: 'white', border: 'none', borderRadius: '5px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer' }}>
+            <button type="submit" className="user-btn user-btn-primary user-btn-block">
               Update Profile
             </button>
           </form>

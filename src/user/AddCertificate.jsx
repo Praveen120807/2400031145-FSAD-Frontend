@@ -3,6 +3,7 @@ import UserNavBar from './UserNavBar';
 import { addCertificate } from '../api/certificate';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
+import './UserTheme.css';
 
 const AddCertificate = () => {
   const { user } = useAuth();
@@ -47,36 +48,59 @@ const AddCertificate = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="user-page user-page-add">
       <UserNavBar />
-      <div style={{ padding: '40px 5%', maxWidth: '800px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#667eea', marginBottom: '20px' }}>Add Certificate</h1>
-        <div style={{ background: 'white', borderRadius: '10px', padding: '30px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-          <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Certificate Name</label>
-              <input type="text" name="certName" value={formData.certName} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Organization Name</label>
-              <input type="text" name="orgName" value={formData.orgName} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Issue Date</label>
-              <input type="date" name="issueDate" value={formData.issueDate} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Expiry Date</label>
-              <input type="date" name="expiryDate" value={formData.expiryDate} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Certificate URL (Optional)</label>
-              <input type="url" name="certificateUrl" value={formData.certificateUrl} onChange={handleChange} placeholder="https://example.com/certificate.pdf" style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} />
-            </div>
-            <button type="submit" style={{ width: '100%', padding: '12px', background: '#667eea', color: 'white', border: 'none', borderRadius: '5px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer' }}>
-              Add Certificate
-            </button>
-          </form>
+      <div className="user-shell user-form-wrap">
+        <h1 className="user-title">Add Certificate</h1>
+        <p className="user-subtitle">Record certification details to maintain a complete and renewal-ready portfolio.</p>
+
+        <div className="user-form-layout">
+          <div className="user-card user-form-card user-form-card-add">
+            <form onSubmit={handleSubmit}>
+              <div className="user-form-section-title">Certificate Information</div>
+              <div className="user-field">
+                <label>Certificate Name</label>
+                <input type="text" name="certName" value={formData.certName} onChange={handleChange} required className="user-input" />
+              </div>
+              <div className="user-field">
+                <label>Organization Name</label>
+                <input type="text" name="orgName" value={formData.orgName} onChange={handleChange} required className="user-input" />
+              </div>
+
+              <div className="user-form-section-title">Validity Timeline</div>
+              <div className="user-field-row">
+                <div className="user-field">
+                  <label>Issue Date</label>
+                  <input type="date" name="issueDate" value={formData.issueDate} onChange={handleChange} required className="user-input" />
+                </div>
+                <div className="user-field">
+                  <label>Expiry Date</label>
+                  <input type="date" name="expiryDate" value={formData.expiryDate} onChange={handleChange} required className="user-input" />
+                </div>
+              </div>
+
+              <div className="user-form-section-title">Reference Link</div>
+              <div className="user-field">
+                <label>Certificate URL (Optional)</label>
+                <input type="url" name="certificateUrl" value={formData.certificateUrl} onChange={handleChange} placeholder="https://example.com/certificate.pdf" className="user-input" />
+              </div>
+
+              <button type="submit" className="user-btn user-btn-primary user-btn-block">
+                Add Certificate
+              </button>
+            </form>
+          </div>
+
+          <aside className="user-card user-helper-card user-helper-card-add">
+            <h3>Submission Guide</h3>
+            <p>Keep entries complete and consistent for better tracking and renewal reporting.</p>
+            <ul>
+              <li>Use the official certification title.</li>
+              <li>Set accurate issue and expiry dates.</li>
+              <li>Add a verification URL whenever available.</li>
+              <li>Review details before submitting.</li>
+            </ul>
+          </aside>
         </div>
       </div>
     </div>

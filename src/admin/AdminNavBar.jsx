@@ -1,8 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import './AdminTheme.css';
+import { useTheme } from '../context/ThemeContext';
 
 const AdminNavBar = () => {
   const { logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -11,13 +14,19 @@ const AdminNavBar = () => {
   };
 
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 5%', background: '#667eea', color: 'white', flexWrap: 'wrap', gap: '15px' }}>
-      <div style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 'bold' }}>🎓 Admin Panel</div>
-      <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
-        <Link to="/admin/home" style={{ padding: '10px 20px', color: 'white', textDecoration: 'none', fontSize: '14px' }}>Home</Link>
-        <Link to="/admin/users" style={{ padding: '10px 20px', color: 'white', textDecoration: 'none', fontSize: '14px' }}>View All Users</Link>
-        <Link to="/admin/certificates" style={{ padding: '10px 20px', color: 'white', textDecoration: 'none', fontSize: '14px' }}>View All Certificates</Link>
-        <button onClick={handleLogout} style={{ padding: '10px 20px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontSize: '14px' }}>Logout</button>
+    <nav className="admin-nav">
+      <div className="admin-nav-brand">
+        <span className="admin-nav-logo" aria-hidden="true">CT</span>
+        Admin Panel
+      </div>
+      <div className="admin-nav-links">
+        <Link to="/admin/home" className="admin-nav-link">Home</Link>
+        <Link to="/admin/users" className="admin-nav-link">View All Users</Link>
+        <Link to="/admin/certificates" className="admin-nav-link">View All Certificates</Link>
+        <button type="button" onClick={toggleTheme} className="admin-nav-theme-toggle">
+          {theme === 'dark' ? 'Light' : 'Dark'}
+        </button>
+        <button onClick={handleLogout} className="admin-nav-logout">Logout</button>
       </div>
     </nav>
   );

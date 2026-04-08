@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AdminNavBar from './AdminNavBar';
 import { getAllUsers, getAllCertificates } from '../api/admin';
+import './AdminTheme.css';
 
 const AdminHome = () => {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -32,27 +34,64 @@ const AdminHome = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="admin-page">
       <AdminNavBar />
-      <div style={{ padding: '40px 5%' }}>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#667eea', marginBottom: '20px' }}>Admin Dashboard</h1>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '30px' }}>
-          <div style={{ padding: '30px', background: 'white', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ fontSize: '24px', color: '#667eea', marginBottom: '10px' }}>Total Users</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
-              {loading ? '...' : totalUsers}
+      <div className="admin-shell">
+        <section className="admin-hero admin-card">
+          <div>
+            <span className="admin-hero-badge">Operations overview</span>
+            <h1 className="admin-title">Admin Dashboard</h1>
+            <p className="admin-hero-text">
+              Track platform activity, review records, and keep the certificate system organized from one control center.
             </p>
           </div>
-          <div style={{ padding: '30px', background: 'white', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ fontSize: '24px', color: '#667eea', marginBottom: '10px' }}>Total Certificates</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
-              {loading ? '...' : totalCertificates}
-            </p>
+          <div className="admin-hero-actions">
+            <Link to="/admin/users" className="admin-hero-action admin-hero-action-primary">Review Users</Link>
+            <Link to="/admin/certificates" className="admin-hero-action">Review Certificates</Link>
           </div>
-          <div style={{ padding: '30px', background: 'white', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ fontSize: '24px', color: '#667eea', marginBottom: '10px' }}>System Status</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', color: '#28a745' }}>Active</p>
+        </section>
+
+        <div className="admin-grid admin-grid-metrics">
+          <div className="admin-card admin-card-users">
+            <h3 className="admin-metric-title">Total Users</h3>
+            <p className="admin-metric-value">{loading ? '...' : totalUsers}</p>
+            <p className="admin-metric-note">Registered accounts in the platform</p>
           </div>
+          <div className="admin-card admin-card-certificates">
+            <h3 className="admin-metric-title">Total Certificates</h3>
+            <p className="admin-metric-value">{loading ? '...' : totalCertificates}</p>
+            <p className="admin-metric-note">Uploaded and tracked credentials</p>
+          </div>
+          <div className="admin-card admin-card-status">
+            <h3 className="admin-metric-title">System Status</h3>
+            <p className="admin-metric-value admin-metric-ok">Active</p>
+            <p className="admin-metric-note">Admin tools are available now</p>
+          </div>
+        </div>
+
+        <div className="admin-grid admin-grid-split">
+          <section className="admin-card admin-panel admin-panel-primary">
+            <h3 className="admin-panel-title">Quick actions</h3>
+            <div className="admin-action-list">
+              <Link to="/admin/users" className="admin-action-item">
+                <strong>Users</strong>
+                <span>Search, review, and manage accounts</span>
+              </Link>
+              <Link to="/admin/certificates" className="admin-action-item">
+                <strong>Certificates</strong>
+                <span>Inspect records and keep data clean</span>
+              </Link>
+            </div>
+          </section>
+
+          <section className="admin-card admin-panel admin-panel-secondary">
+            <h3 className="admin-panel-title">Platform notes</h3>
+            <ul className="admin-panel-list">
+              <li>Use the search pages to locate entries quickly.</li>
+              <li>Delete actions remain protected by existing confirmation logic.</li>
+              <li>Keep certificates and user records aligned for a cleaner workflow.</li>
+            </ul>
+          </section>
         </div>
       </div>
     </div>

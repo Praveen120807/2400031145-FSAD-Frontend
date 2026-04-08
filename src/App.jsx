@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTheme } from './context/ThemeContext';
 
 // Pages
 import Home from './pages/Home';
@@ -24,6 +25,8 @@ import UpdateCertificate from './user/UpdateCertificate';
 import UserProfile from './user/UserProfile';
 
 function App() {
+  const { theme } = useTheme();
+
   return (
     <AuthProvider>
       <Router>
@@ -37,7 +40,7 @@ function App() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light"
+          theme={theme}
         />
         <Routes>
           {/* Public Routes */}

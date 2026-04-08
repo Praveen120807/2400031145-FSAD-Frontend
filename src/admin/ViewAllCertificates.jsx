@@ -3,6 +3,7 @@ import AdminNavBar from './AdminNavBar';
 import { getAllCertificates } from '../api/admin';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
+import './AdminTheme.css';
 
 const ViewAllCertificates = () => {
   const [certificates, setCertificates] = useState([]);
@@ -46,54 +47,61 @@ const ViewAllCertificates = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="admin-page">
       <AdminNavBar />
-      <div style={{ padding: '40px 5%' }}>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#667eea', marginBottom: '20px' }}>All Certificates</h1>
+      <div className="admin-shell">
+        <h1 className="admin-title">All Certificates</h1>
+        <p className="admin-section-note">
+          Review certificate records, search by certificate or user, and keep expiry data easy to scan.
+        </p>
         
-        <div style={{ marginBottom: '20px' }}>
+        <div className="admin-search-wrap">
           <input 
             type="text" 
             placeholder="Search by certificate name, organization, or user..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ width: '100%', maxWidth: '500px', padding: '12px', border: '1px solid #ddd', borderRadius: '5px', fontSize: '14px' }}
+            className="admin-search"
           />
         </div>
 
         {loading ? (
           <LoadingSpinner />
         ) : (
-          <div style={{ background: 'white', borderRadius: '10px', padding: '20px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <div className="admin-table-wrap">
+            <div className="admin-table-meta">
+              <span className="admin-table-chip">{filteredCerts.length} records</span>
+              <span className="admin-table-chip admin-table-chip-soft">Certificate registry</span>
+            </div>
+            <table className="admin-table">
               <thead>
-                <tr style={{ borderBottom: '2px solid #667eea' }}>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>ID</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Certificate Name</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Organization</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>User</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Issue Date</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Expiry Date</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Added At</th>
+                <tr>
+                  <th>ID</th>
+                  <th>Certificate Name</th>
+                  <th>Organization</th>
+                  <th>User</th>
+                  <th>Issue Date</th>
+                  <th>Expiry Date</th>
+                  <th>Added At</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredCerts.length === 0 ? (
                   <tr>
-                    <td colSpan="7" style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
+                    <td colSpan="7" className="admin-empty">
                       {searchTerm ? 'No certificates found matching your search' : 'No certificates found'}
                     </td>
                   </tr>
                 ) : (
                   filteredCerts.map((cert) => (
-                    <tr key={cert.id} style={{ borderBottom: '1px solid #eee' }}>
-                      <td style={{ padding: '15px' }}>{cert.id}</td>
-                      <td style={{ padding: '15px' }}>{cert.certName}</td>
-                      <td style={{ padding: '15px' }}>{cert.orgName}</td>
-                      <td style={{ padding: '15px' }}>{cert.user?.name || 'N/A'}</td>
-                      <td style={{ padding: '15px' }}>{cert.issueDate}</td>
-                      <td style={{ padding: '15px' }}>{cert.expiryDate}</td>
-                      <td style={{ padding: '15px' }}>{cert.addedAt ? new Date(cert.addedAt).toLocaleDateString() : 'N/A'}</td>
+                    <tr key={cert.id}>
+                      <td>{cert.id}</td>
+                      <td>{cert.certName}</td>
+                      <td>{cert.orgName}</td>
+                      <td>{cert.user?.name || 'N/A'}</td>
+                      <td>{cert.issueDate}</td>
+                      <td>{cert.expiryDate}</td>
+                      <td>{cert.addedAt ? new Date(cert.addedAt).toLocaleDateString() : 'N/A'}</td>
                     </tr>
                   ))
                 )}

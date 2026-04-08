@@ -37,7 +37,7 @@ const Register = () => {
 
       <div className="auth-card auth-card-register">
         <div className="auth-header">
-          <h2>🎓 CertTracker</h2>
+          <h2>CertTracker</h2>
           <p>Create your account</p>
         </div>
         <form onSubmit={handleSubmit}>

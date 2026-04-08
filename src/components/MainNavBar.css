@@ -12,6 +12,9 @@
 }
 
 .main-navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-size: clamp(20px, 4vw, 24px);
   font-weight: 700;
   text-decoration: none;
@@ -19,9 +22,36 @@
   letter-spacing: -0.02em;
 }
 
+.main-navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #f6fbff;
+  background: linear-gradient(135deg, #2f78b2, #63cba7);
+  box-shadow: 0 10px 20px rgba(47, 120, 178, 0.22);
+}
+
 .main-navbar-actions {
   display: flex;
   gap: 12px;
+  align-items: center;
+}
+
+.main-navbar-theme-toggle {
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(160, 187, 255, 0.3);
+  background: rgba(62, 92, 127, 0.3);
+  color: #d9e8ff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .main-navbar-btn {
@@ -44,15 +74,48 @@
 }
 
 .main-navbar-btn-login {
-  background: linear-gradient(135deg, #2f9fd6, #4fb8e9);
-  color: #041a2b;
-  box-shadow: 0 8px 18px rgba(79, 184, 233, 0.28);
+  background: linear-gradient(135deg, #2f78b2, #3e8ac7);
+  color: #eef6ff;
+  box-shadow: 0 8px 18px rgba(47, 120, 178, 0.24);
 }
 
 .main-navbar-btn-register {
-  background: linear-gradient(135deg, #5aae4d, #7ccf6d);
-  color: #0f2411;
-  box-shadow: 0 8px 18px rgba(124, 207, 109, 0.24);
+  background: linear-gradient(135deg, #3f8a62, #5ea57a);
+  color: #edf7f1;
+  box-shadow: 0 8px 18px rgba(63, 138, 98, 0.24);
+}
+
+[data-theme='light'] .main-navbar {
+  border-bottom-color: rgba(184, 169, 149, 0.26);
+  background:
+    linear-gradient(180deg, rgba(255, 251, 246, 0.96), rgba(245, 238, 229, 0.94));
+  box-shadow: 0 10px 24px rgba(26, 59, 94, 0.08);
+}
+
+[data-theme='light'] .main-navbar-brand {
+  color: #1b4b79;
+}
+
+[data-theme='light'] .main-navbar-logo {
+  color: #17314c;
+  background: linear-gradient(135deg, #f4d6ab, #8fd3be);
+  box-shadow: 0 10px 20px rgba(106, 88, 69, 0.15);
+}
+
+[data-theme='light'] .main-navbar-theme-toggle {
+  background: rgba(238, 231, 220, 0.92);
+  border-color: rgba(184, 169, 149, 0.34);
+  color: #5a4c39;
+}
+
+[data-theme='light'] .main-navbar-btn-login {
+  background: linear-gradient(135deg, #2f78b2, #4a93cf);
+  color: #f8fbff;
+}
+
+[data-theme='light'] .main-navbar-btn-register {
+  background: linear-gradient(135deg, #3f8a62, #5ea57a);
+  color: #f7fcf8;
 }
 
 @media (max-width: 600px) {

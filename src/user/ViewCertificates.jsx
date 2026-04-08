@@ -5,6 +5,7 @@ import { getCertificatesByUser, deleteCertificate } from '../api/certificate';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
+import './UserTheme.css';
 
 const ViewCertificates = () => {
   const [certificates, setCertificates] = useState([]);
@@ -45,38 +46,66 @@ const ViewCertificates = () => {
     }
   };
 
+  const getCertificateTone = (certName = '', orgName = '') => {
+    const seed = `${certName}${orgName}`.toLowerCase();
+    if (seed.includes('azure') || seed.includes('microsoft')) return 'tone-blue';
+    if (seed.includes('aws') || seed.includes('amazon')) return 'tone-indigo';
+    if (seed.includes('google') || seed.includes('data')) return 'tone-teal';
+    return 'tone-slate';
+  };
+
+  const getStatusText = (expiryDate) => {
+    if (!expiryDate) return 'Expiry date unavailable';
+    const today = new Date();
+    const expiry = new Date(expiryDate);
+    const diffDays = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
+    if (diffDays < 0) return 'Expired';
+    if (diffDays <= 30) return `Expires in ${diffDays} days`;
+    return `Valid till ${expiryDate}`;
+  };
+
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="user-page">
       <UserNavBar />
-      <div style={{ padding: '40px 5%' }}>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#667eea', marginBottom: '20px' }}>My Certificates</h1>
+      <div className="user-shell">
+        <h1 className="user-title">My Certificates</h1>
         {loading ? (
           <LoadingSpinner />
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+          <div className="user-cert-grid">
             {certificates.length === 0 ? (
-              <p style={{ color: '#666' }}>No certificates found. Add your first certificate!</p>
+              <p className="user-empty">No certificates found. Add your first certificate!</p>
             ) : (
               certificates.map((cert) => (
-                <div key={cert.id} style={{ background: 'white', borderRadius: '10px', padding: '20px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-                  <h3 style={{ color: '#667eea', marginBottom: '10px' }}>{cert.certName}</h3>
-                  <p style={{ color: '#666', marginBottom: '5px' }}><strong>Organization:</strong> {cert.orgName}</p>
-                  <p style={{ color: '#666', marginBottom: '5px' }}><strong>Issue Date:</strong> {cert.issueDate}</p>
-                  <p style={{ color: '#666', marginBottom: '5px' }}><strong>Expiry Date:</strong> {cert.expiryDate}</p>
+                <article key={cert.id} className="user-card user-cert-card">
+                  <div className={`user-cert-preview ${getCertificateTone(cert.certName, cert.orgName)}`}>
+                    <p className="user-cert-preview-label">Professional Certificate</p>
+                    <h3 className="user-cert-preview-title">{cert.certName}</h3>
+                    <div className="user-cert-preview-divider" />
+                    <p className="user-cert-preview-meta">Issued by {cert.orgName}</p>
+                    <span className="user-cert-preview-badge">Verified</span>
+                  </div>
+
+                  <div className="user-cert-body">
+                    <p className="user-cert-line"><strong>Organization:</strong> {cert.orgName}</p>
+                    <p className="user-cert-line"><strong>Issue Date:</strong> {cert.issueDate}</p>
+                    <p className="user-cert-line"><strong>Expiry Date:</strong> {cert.expiryDate}</p>
+                    <p className="user-cert-status">{getStatusText(cert.expiryDate)}</p>
                   {cert.certificateUrl && (
-                    <p style={{ color: '#666', marginBottom: '15px' }}>
-                      <strong>URL:</strong> <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#667eea' }}>View Certificate</a>
+                    <p className="user-cert-line user-cert-line-url">
+                      <strong>URL:</strong> <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer" className="user-cert-link">View Certificate</a>
                     </p>
                   )}
-                  <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
-                    <button onClick={() => navigate(`/user/update-certificate/${cert.certName}`)} style={{ flex: 1, padding: '10px', background: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                    <div className="user-btn-row user-cert-actions">
+                    <button onClick={() => navigate(`/user/update-certificate/${cert.certName}`)} className="user-btn user-btn-success user-cert-action-btn">
                       Edit
                     </button>
-                    <button onClick={() => handleDelete(cert.certName)} style={{ flex: 1, padding: '10px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                    <button onClick={() => handleDelete(cert.certName)} className="user-btn user-btn-danger user-cert-action-btn">
                       Delete
                     </button>
                   </div>
-                </div>
+                  </div>
+                </article>
               ))
             )}
           </div>

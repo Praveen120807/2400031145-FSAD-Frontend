@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserNavBar from './UserNavBar';
 import { getCertificatesByUser } from '../api/certificate';
 import { useAuth } from '../context/AuthContext';
+import './UserTheme.css';
 
 const UserHome = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [totalCertificates, setTotalCertificates] = useState(0);
   const [expiringSoon, setExpiringSoon] = useState(0);
   const [activeCertificates, setActiveCertificates] = useState(0);
@@ -48,29 +51,67 @@ const UserHome = () => {
     }
   };
 
+  const portfolioHealth = totalCertificates === 0
+    ? 0
+    : Math.round((activeCertificates / totalCertificates) * 100);
+
+  const renewalNeedsAction = expiringSoon > 0;
+
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="user-page">
       <UserNavBar />
-      <div style={{ padding: '40px 5%' }}>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#667eea', marginBottom: '20px' }}>My Dashboard</h1>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '30px' }}>
-          <div style={{ padding: '30px', background: 'white', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ fontSize: '24px', color: '#667eea', marginBottom: '10px' }}>Total Certificates</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
+      <div className="user-shell">
+        <section className="user-dashboard-hero user-card">
+          <div>
+            <h1 className="user-title">My Dashboard</h1>
+            <p className="user-subtitle">Overview of your certification portfolio and renewal health.</p>
+          </div>
+          <div className="user-dashboard-actions">
+            <button onClick={() => navigate('/user/add-certificate')} className="user-btn user-btn-primary">Add Certificate</button>
+            <button onClick={() => navigate('/user/view-certificates')} className="user-btn user-btn-secondary">View Portfolio</button>
+          </div>
+        </section>
+
+        <div className="user-grid user-kpi-grid">
+          <div className="user-card user-stat-card user-kpi-card kpi-total">
+            <h3 className="user-stat-title">Total Certificates</h3>
+            <p className="user-stat-value">
               {loading ? '...' : totalCertificates}
             </p>
           </div>
-          <div style={{ padding: '30px', background: 'white', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ fontSize: '24px', color: '#ff9800', marginBottom: '10px' }}>Expiring Soon</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
+          <div className="user-card user-stat-card user-kpi-card kpi-expiring">
+            <h3 className="user-stat-title">Expiring Soon</h3>
+            <p className="user-stat-value">
               {loading ? '...' : expiringSoon}
             </p>
-            <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>Within 30 days</p>
+            <p className="user-stat-note">Within 30 days</p>
           </div>
-          <div style={{ padding: '30px', background: 'white', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ fontSize: '24px', color: '#28a745', marginBottom: '10px' }}>Active</h3>
-            <p style={{ fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
+          <div className="user-card user-stat-card user-kpi-card kpi-active">
+            <h3 className="user-stat-title">Active</h3>
+            <p className="user-stat-value">
               {loading ? '...' : activeCertificates}
+            </p>
+          </div>
+        </div>
+
+        <div className="user-grid user-insight-grid">
+          <div className="user-card user-insight-card insight-health">
+            <h3 className="user-stat-title">Portfolio Health</h3>
+            <p className="user-insight-value">{loading ? '...' : `${portfolioHealth}%`}</p>
+            <p className="user-stat-note">Active certificates as a percentage of your total portfolio.</p>
+          </div>
+
+          <div className={`user-card user-insight-card ${renewalNeedsAction ? 'insight-attention' : 'insight-good'}`}>
+            <h3 className="user-stat-title">Renewal Attention</h3>
+            <p className="user-insight-value">
+              {loading ? '...' : renewalNeedsAction ? 'Action Required' : 'On Track'}
+            </p>
+            <p className="user-stat-note">
+              {loading
+                ? 'Checking renewal timeline...'
+                : renewalNeedsAction
+                  ? `${expiringSoon} certificate(s) need attention soon.`
+                  : 'No upcoming renewals in the next 30 days.'}
             </p>
           </div>
         </div>

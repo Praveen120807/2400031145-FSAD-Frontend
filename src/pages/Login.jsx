@@ -133,7 +133,7 @@ const Login = () => {
 
       <div className="auth-card">
         <div className="auth-header">
-          <h2>🎓 CertTracker</h2>
+          <h2>CertTracker</h2>
           <p>Sign in to your account</p>
         </div>
         <form onSubmit={handleLogin}>

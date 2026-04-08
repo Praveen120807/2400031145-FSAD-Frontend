@@ -3,6 +3,7 @@ import AdminNavBar from './AdminNavBar';
 import { getAllUsers, deleteUser } from '../api/admin';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
+import './AdminTheme.css';
 
 const ViewAllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -55,58 +56,65 @@ const ViewAllUsers = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="admin-page">
       <AdminNavBar />
-      <div style={{ padding: '40px 5%' }}>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#667eea', marginBottom: '20px' }}>All Users</h1>
+      <div className="admin-shell">
+        <h1 className="admin-title">All Users</h1>
+        <p className="admin-section-note">
+          Review registered accounts, search by name or ID, and keep the user list organized.
+        </p>
         
         {/* Search Box */}
-        <div style={{ marginBottom: '20px' }}>
+        <div className="admin-search-wrap">
           <input 
             type="text" 
             placeholder="Search by name or ID..." 
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
-            style={{ width: '100%', maxWidth: '400px', padding: '12px', border: '1px solid #ddd', borderRadius: '5px', fontSize: '14px' }}
+            className="admin-search"
           />
         </div>
 
         {loading ? (
           <LoadingSpinner />
         ) : (
-          <div style={{ background: 'white', borderRadius: '10px', padding: '20px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <div className="admin-table-wrap">
+            <div className="admin-table-meta">
+              <span className="admin-table-chip">{filteredUsers.length} records</span>
+              <span className="admin-table-chip admin-table-chip-soft">Managed users</span>
+            </div>
+            <table className="admin-table">
               <thead>
-                <tr style={{ borderBottom: '2px solid #667eea' }}>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>ID</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Name</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Gender</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Email</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Username</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Contact</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Registered At</th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>Actions</th>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Email</th>
+                  <th>Username</th>
+                  <th>Contact</th>
+                  <th>Registered At</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.length === 0 ? (
                   <tr>
-                    <td colSpan="8" style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
+                    <td colSpan="8" className="admin-empty">
                       {searchName ? 'No users found matching your search' : 'No users found'}
                     </td>
                   </tr>
                 ) : (
                   filteredUsers.map((user) => (
-                    <tr key={user.id} style={{ borderBottom: '1px solid #eee' }}>
-                      <td style={{ padding: '15px' }}>{user.id}</td>
-                      <td style={{ padding: '15px' }}>{user.name}</td>
-                      <td style={{ padding: '15px' }}>{user.gender}</td>
-                      <td style={{ padding: '15px' }}>{user.email}</td>
-                      <td style={{ padding: '15px' }}>{user.username}</td>
-                      <td style={{ padding: '15px' }}>{user.Contact}</td>
-                      <td style={{ padding: '15px' }}>{user.registeredAt ? new Date(user.registeredAt).toLocaleDateString() : 'N/A'}</td>
-                      <td style={{ padding: '15px' }}>
-                        <button onClick={() => handleDelete(user.id)} style={{ padding: '8px 16px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.name}</td>
+                      <td>{user.gender}</td>
+                      <td>{user.email}</td>
+                      <td>{user.username}</td>
+                      <td>{user.Contact}</td>
+                      <td>{user.registeredAt ? new Date(user.registeredAt).toLocaleDateString() : 'N/A'}</td>
+                      <td>
+                        <button onClick={() => handleDelete(user.id)} className="admin-btn-danger">
                           Delete
                         </button>
                       </td>
