@@ -1,0 +1,21 @@
+<svg width="640" height="380" viewBox="0 0 640 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="640" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F2744"/>
+      <stop offset="1" stop-color="#1B3F68"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#63D1FF"/>
+      <stop offset="1" stop-color="#2BA1D8"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="636" height="376" rx="24" fill="url(#bg1)" stroke="#6FCBFF" stroke-opacity="0.25" stroke-width="4"/>
+  <text x="44" y="74" fill="#BEE8FF" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">PROFESSIONAL CERTIFICATE</text>
+  <text x="44" y="110" fill="#E9F7FF" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="800">Cloud Architect</text>
+  <rect x="44" y="146" width="550" height="1" fill="#9BDFFF" fill-opacity="0.35"/>
+  <text x="44" y="200" fill="#D6EEFF" font-family="Segoe UI, Arial, sans-serif" font-size="20">Awarded to</text>
+  <text x="44" y="238" fill="#FFFFFF" font-family="Georgia, serif" font-size="36">Alex Morgan</text>
+  <text x="44" y="290" fill="#D6EEFF" font-family="Segoe UI, Arial, sans-serif" font-size="18">ID: CT-2026-CA-11829</text>
+  <rect x="430" y="286" width="164" height="48" rx="24" fill="url(#bar1)"/>
+  <text x="458" y="317" fill="#082033" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">VERIFIED</text>
+</svg>

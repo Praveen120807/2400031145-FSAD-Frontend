@@ -1,0 +1,22 @@
+<svg width="640" height="380" viewBox="0 0 640 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="42" y1="14" x2="610" y2="355" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2C193E"/>
+      <stop offset="1" stop-color="#472162"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFD983"/>
+      <stop offset="1" stop-color="#F8B74B"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="636" height="376" rx="24" fill="url(#bg2)" stroke="#D39AFF" stroke-opacity="0.24" stroke-width="4"/>
+  <circle cx="560" cy="86" r="42" fill="#A45BE3" fill-opacity="0.45"/>
+  <text x="44" y="74" fill="#EEDCFF" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">PROFESSIONAL CERTIFICATE</text>
+  <text x="44" y="110" fill="#FBF2FF" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="800">Cybersecurity Analyst</text>
+  <rect x="44" y="146" width="550" height="1" fill="#D8B5F5" fill-opacity="0.4"/>
+  <text x="44" y="200" fill="#E7CEFA" font-family="Segoe UI, Arial, sans-serif" font-size="20">Awarded to</text>
+  <text x="44" y="238" fill="#FFFFFF" font-family="Georgia, serif" font-size="36">Priya Sharma</text>
+  <text x="44" y="290" fill="#E7CEFA" font-family="Segoe UI, Arial, sans-serif" font-size="18">ID: CT-2026-CS-47214</text>
+  <rect x="410" y="286" width="184" height="48" rx="24" fill="url(#bar2)"/>
+  <text x="430" y="317" fill="#3B2607" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">RENEW SOON</text>
+</svg>

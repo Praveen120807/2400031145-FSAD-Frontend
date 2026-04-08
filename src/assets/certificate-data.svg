@@ -1,0 +1,22 @@
+<svg width="640" height="380" viewBox="0 0 640 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="12" y1="14" x2="628" y2="372" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10352F"/>
+      <stop offset="1" stop-color="#1E5A50"/>
+    </linearGradient>
+    <linearGradient id="bar3" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#96F0CF"/>
+      <stop offset="1" stop-color="#58C49F"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="636" height="376" rx="24" fill="url(#bg3)" stroke="#97E8CB" stroke-opacity="0.26" stroke-width="4"/>
+  <rect x="488" y="48" width="116" height="72" rx="16" fill="#8EE3C6" fill-opacity="0.26"/>
+  <text x="44" y="74" fill="#CCF8EA" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">PROFESSIONAL CERTIFICATE</text>
+  <text x="44" y="110" fill="#EBFFF8" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="800">Data Engineering Professional</text>
+  <rect x="44" y="146" width="550" height="1" fill="#C0F4E3" fill-opacity="0.36"/>
+  <text x="44" y="200" fill="#C8F2E4" font-family="Segoe UI, Arial, sans-serif" font-size="20">Awarded to</text>
+  <text x="44" y="238" fill="#FFFFFF" font-family="Georgia, serif" font-size="36">Daniel Lee</text>
+  <text x="44" y="290" fill="#C8F2E4" font-family="Segoe UI, Arial, sans-serif" font-size="18">ID: CT-2026-DE-88031</text>
+  <rect x="430" y="286" width="164" height="48" rx="24" fill="url(#bar3)"/>
+  <text x="457" y="317" fill="#053124" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">ACTIVE</text>
+</svg>

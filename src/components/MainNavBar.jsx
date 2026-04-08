@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom';
+import './MainNavBar.css';
 
 const MainNavBar = () => {
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 5%', borderBottom: '1px solid #eee', background: 'white' }}>
-      <Link to="/" style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 'bold', textDecoration: 'none', color: '#667eea' }}>
+    <nav className="main-navbar">
+      <Link to="/" className="main-navbar-brand">
         🎓 CertTracker
       </Link>
-      <div style={{ display: 'flex', gap: '15px' }}>
-        <Link to="/login" style={{ padding: '10px 20px', background: '#007bff', color: 'white', border: 'none', borderRadius: '5px', textDecoration: 'none', fontSize: '14px' }}>
+      <div className="main-navbar-actions">
+        <Link to="/login" className="main-navbar-btn main-navbar-btn-login">
           Login
         </Link>
-        <Link to="/register" style={{ padding: '10px 20px', background: '#28a745', color: 'white', border: 'none', borderRadius: '5px', textDecoration: 'none', fontSize: '14px' }}>
+        <Link to="/register" className="main-navbar-btn main-navbar-btn-register">
           Register
         </Link>
       </div>

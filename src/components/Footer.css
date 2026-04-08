@@ -1,0 +1,113 @@
+.footer-premium {
+  margin-top: auto;
+  padding: 22px 5% 18px;
+  color: #e7f0ff;
+  border-top: 1px solid rgba(160, 187, 255, 0.16);
+  background:
+    linear-gradient(180deg, rgba(9, 14, 27, 0.88), rgba(6, 11, 22, 0.96));
+  backdrop-filter: blur(8px);
+}
+
+.footer-shell {
+  width: min(1140px, 100%);
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr 1fr;
+  gap: 26px;
+  padding: 26px;
+  border: 1px solid rgba(160, 187, 255, 0.14);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(13, 21, 38, 0.9), rgba(9, 15, 29, 0.86));
+  box-shadow: 0 16px 38px rgba(2, 6, 16, 0.4);
+}
+
+.footer-brand-col h3 {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.footer-brand-col p {
+  margin: 12px 0 16px;
+  color: #aebdd8;
+  line-height: 1.65;
+  font-size: 0.92rem;
+}
+
+.footer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-badges span {
+  border: 1px solid rgba(83, 199, 255, 0.36);
+  color: #cfebff;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  padding: 6px 10px;
+  background: rgba(83, 199, 255, 0.1);
+}
+
+.footer-links-col h4 {
+  margin: 0 0 12px;
+  color: #e8f2ff;
+  font-size: 0.98rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.footer-links a {
+  color: #9bc6ec;
+  text-decoration: none;
+  width: fit-content;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #d8f0ff;
+  transform: translateX(2px);
+}
+
+.footer-contact-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #c0d3eb;
+  font-size: 0.9rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 16px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(160, 187, 255, 0.14);
+  color: #8ca2c1;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 950px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-premium {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .footer-grid {
+    padding: 18px;
+  }
+}
