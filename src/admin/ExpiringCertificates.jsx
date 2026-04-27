@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import AdminNavBar from './AdminNavBar';
-import { getExpiringCertificates, sendEmail } from '../api/admin';
+import { getAllCertificates, sendEmail } from '../api/admin';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
 import './AdminTheme.css';
@@ -14,12 +14,30 @@ const ExpiringCertificates = () => {
   const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ subject: '', message: '' });
 
+  const normalizeDate = (value) => {
+    if (!value) return null;
+    const dateValue = new Date(value);
+    if (Number.isNaN(dateValue.getTime())) return null;
+    return new Date(dateValue.getFullYear(), dateValue.getMonth(), dateValue.getDate());
+  };
+
+  const filterExpiringCertificates = (allCertificates, selectedDate) => {
+    const cutoffDate = normalizeDate(selectedDate);
+    if (!cutoffDate) return [];
+
+    return (allCertificates || []).filter((cert) => {
+      const expiryDate = normalizeDate(cert.expiryDate);
+      return expiryDate && expiryDate <= cutoffDate;
+    });
+  };
+
   const fetchExpiring = async () => {
     if (!date) return toast.warn('Please select a date');
     setLoading(true);
     try {
-      const data = await getExpiringCertificates(date);
-      setCertificates(data);
+      const allCertificates = await getAllCertificates();
+      const expiringCertificates = filterExpiringCertificates(allCertificates, date);
+      setCertificates(expiringCertificates);
       setFetched(true);
     } catch (error) {
       if (error.response?.status === 204) {
@@ -89,7 +107,7 @@ const ExpiringCertificates = () => {
           <div className="admin-table-wrap">
             <div className="admin-table-meta">
               <span className="admin-table-chip">{certificates.length} expiring</span>
-              <span className="admin-table-chip admin-table-chip-soft">Before {date}</span>
+              <span className="admin-table-chip admin-table-chip-soft">On or before {date}</span>
             </div>
             <table className="admin-table">
               <thead>

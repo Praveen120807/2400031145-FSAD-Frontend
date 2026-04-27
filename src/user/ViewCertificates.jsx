@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserNavBar from './UserNavBar';
-import { getCertificatesByUser, deleteCertificate } from '../api/certificate';
+import { getCertificatesByUser, deleteCertificate, downloadCertificate } from '../api/certificate';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
@@ -10,6 +10,7 @@ import './UserTheme.css';
 const ViewCertificates = () => {
   const [certificates, setCertificates] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [downloadingId, setDownloadingId] = useState(null);
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -31,6 +32,32 @@ const ViewCertificates = () => {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDownload = async (certId, certName) => {
+    setDownloadingId(certId);
+    try {
+      const pdfBlob = await downloadCertificate(certId);
+      
+      // Create blob URL and download
+      const url = window.URL.createObjectURL(pdfBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${certName}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+      
+      toast.success('Certificate downloaded successfully');
+    } catch (error) {
+      console.error('Download error:', error);
+      toast.error('Failed to download certificate');
+    } finally {
+      setDownloadingId(null);
     }
   };
 
@@ -90,19 +117,25 @@ const ViewCertificates = () => {
                     <p className="user-cert-line"><strong>Issue Date:</strong> {cert.issueDate}</p>
                     <p className="user-cert-line"><strong>Expiry Date:</strong> {cert.expiryDate}</p>
                     <p className="user-cert-status">{getStatusText(cert.expiryDate)}</p>
-                  {cert.certificateUrl && (
-                    <p className="user-cert-line user-cert-line-url">
-                      <strong>URL:</strong> <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer" className="user-cert-link">View Certificate</a>
-                    </p>
-                  )}
                     <div className="user-btn-row user-cert-actions">
-                    <button onClick={() => navigate(`/user/update-certificate/${cert.certName}`)} className="user-btn user-btn-success user-cert-action-btn">
-                      Edit
-                    </button>
-                    <button onClick={() => handleDelete(cert.certName)} className="user-btn user-btn-danger user-cert-action-btn">
-                      Delete
-                    </button>
-                  </div>
+                      <button 
+                        onClick={() => handleDownload(cert.id, cert.certName)} 
+                        className="user-btn user-btn-info user-cert-action-btn"
+                        disabled={downloadingId === cert.id}
+                      >
+                        {downloadingId === cert.id ? 'Downloading...' : '📥 Download'}
+                      </button>
+                      <button 
+                        onClick={() => navigate(`/user/update-certificate/${cert.certName}`)} 
+                        className="user-btn user-btn-success user-cert-action-btn">
+                        Edit
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(cert.certName)} 
+                        className="user-btn user-btn-danger user-cert-action-btn">
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </article>
               ))
